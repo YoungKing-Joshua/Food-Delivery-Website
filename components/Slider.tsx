@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const data = [
   {
@@ -17,7 +17,7 @@ const data = [
   {
     id: 3,
     title: "the best pizza to share with your family",
-    image: "/slide3.png",
+    image: "/slide3.jpg",
   },
 ];
 
@@ -40,9 +40,7 @@ const Slider = () => {
         </h1>{" "}
       </div>
       <div>
-        <button className="bg-red-500 text-white py-4 px-8">
-          {data[currentSlide].id}
-        </button>
+        <button className="bg-red-500 text-white py-4 px-8">Order Now</button>
       </div>
       {/* IMAGE CONTAINER */}
       <div className="w-full flex-1 relative lg:h-full">

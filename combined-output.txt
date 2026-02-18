@@ -1,0 +1,223 @@
+./components/Carticon.tsx
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+const Carticon = () => {
+  return (
+    <Link href="/cart" className="flex items-center gap-4">
+      <div className="relative w-8 h-8 md:w-5 md:h-5">
+        <Image src="/cart.png" alt="" fill />
+      </div>
+      <span>Cart (3)</span>
+    </Link>
+  );
+};
+
+export default Carticon;
+
+
+
+./components/Featured.tsx
+
+
+
+./components/Footer.tsx (File not found)
+
+
+
+./components/Menu.tsx
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import Carticon from "./Carticon";
+
+const links = [
+  { id: 1, title: "Homepage", url: "/" },
+  { id: 2, title: "Menu", url: "/" },
+  { id: 3, title: "Working Hours", url: "/" },
+  { id: 4, title: "Contact", url: "/" },
+];
+
+const Menu = () => {
+  const [open, setOpen] = React.useState(false);
+
+  //TEMPORARY
+
+  const user = false;
+  return (
+    <div>
+      {!open ? (
+        <Image
+          src="/open.png"
+          alt=""
+          width={20}
+          height={20}
+          onClick={() => setOpen(true)}
+        />
+      ) : (
+        <Image
+          src="/open.png"
+          alt=""
+          width={20}
+          height={20}
+          onClick={() => setOpen(false)}
+        />
+      )}
+      {open && (
+        <div className="bg-red-500 text-white absolute left--0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10">
+          {links.map((item) => (
+            <Link href={item.url} key={item.id} onClick={() => setOpen(false)}>
+              {item.title}
+            </Link>
+          ))}
+          {!user ? (
+            <Link href="/login" onClick={() => setOpen(false)}>
+              Login
+            </Link>
+          ) : (
+            <Link href="/orders" onClick={() => setOpen(false)}>
+              Orders
+            </Link>
+          )}
+          <Link href="/cart" onClick={() => setOpen(false)}>
+            <Carticon />
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Menu;
+
+
+
+./components/Navbar.tsx
+import React from "react";
+import Menu from "./Menu";
+import Link from "next/link";
+import Image from "next/image";
+
+const Navbar = () => {
+  const user = false;
+  return (
+    <div className="h-12 text-red-500 p-4 flex items-center justify-between border-b-2 border-b-red-500 uppercase md:h-24 lg:px-20">
+      {/* LEFT LINKS */}
+      <div className="hidden md:flex gap-4 flex-1">
+        <Link href="/">Homepage</Link>
+        <Link href="/">Menu</Link>
+        <Link href="/">Contact</Link>
+      </div>
+      {/*Logo*/}
+      <div className="text-xl md:font-bold flex-1 md:text-center">
+        <Link href="/">Massino</Link>
+      </div>
+      {/*Mobile Menu*/}
+      <div className="md:hidden">
+        <Menu />
+      </div>
+      {/* RIGHT LINKS */}
+      <div className="hidden md:flex gap-4 items-center justify-end flex-1">
+        <div className="md:absolute top-3 r-2 lg:static flex items-center gap-2 cursor-pointer bg-orange-300 px-1 rounded-md">
+          <Image src="/phone.png" alt="" width={20} height={20} />
+          <span>+1 234 567 890</span>
+        </div>
+        {!user ? (
+          <Link href="/login">Login</Link>
+        ) : (
+          <Link href="/orders">Orders</Link>
+        )}
+        <Link href="/contact">Contact</Link>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
+
+
+
+./components/Notification.tsx
+import React from "react";
+
+const Notification = () => {
+  return (
+    <div className="h-12 bg-red-500 text-white px-4 flex items-center justify-center text-center text-small md:text-base cursor-poiter">
+      Free Delivery On Monday
+    </div>
+  );
+};
+
+export default Notification;
+
+
+
+./components/Offer.tsx
+
+
+
+./components/Slider.tsx
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+const data = [
+  {
+    id: 1,
+    title: "always fresh & always crispy & always hot",
+    image: "/slide1.png",
+  },
+  {
+    id: 2,
+    title: "we deliver your order wherever you are in Accra",
+    image: "/slide2.png",
+  },
+  {
+    id: 3,
+    title: "the best pizza to share with your family",
+    image: "/slide3.png",
+  },
+];
+
+const Slider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex flex-col h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] lg:flex-row">
+      {/* TEXT CONTAINER */}
+      <div className="flex-1 flex items-center justify-center flex-col gap-8 text-red-500 font-bold">
+        <h1 className="text-5xl text-center uppercase p-4 md:p-10 md:text-6xl xl:text-7xl">
+          {data[currentSlide].title}
+        </h1>{" "}
+      </div>
+      <div>
+        <button className="bg-red-500 text-white py-4 px-8">Order Now</button>
+      </div>
+      {/* IMAGE CONTAINER */}
+      <div className="w-full flex-1 relative lg:h-full">
+        <Image
+          src={data[currentSlide].image}
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Slider;
+
+
+
