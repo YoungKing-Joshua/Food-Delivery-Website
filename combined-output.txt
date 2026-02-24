@@ -1,3 +1,288 @@
+./app/[category]/page.tsx (File not found)
+
+
+
+./app/cart/page.tsx
+import Image from "next/image";
+import React from "react";
+
+const CartPage = () => {
+  return (
+    <div className="h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
+      {/* PRODUCTS CONTAINER */}
+      <div className="h-1/2 p-4 flex flex-col justify-center overflow-y-auto lg:h-full lg:w-2/3 2xl:text-xl 2xl:gap-6">
+        <div className="flex items-center justify-between mb-4">
+          <Image
+            src="/temporary/p1.png"
+            alt="Sicilian pizza"
+            width={100}
+            height={100}
+          />
+          <div>
+            <h1 className="uppercase text-xl font-bold">sicilian</h1>
+            <span>Large</span>
+          </div>
+          <h2 className="font-bold">$79.90</h2>
+          <span className="cursor-pointer">X</span>
+        </div>
+      </div>
+
+      {/* PAYMENT CONTAINER */}
+      <div className="h-1/2 p-4 bg-fuchsia-50 flex flex-col gap-4 justify-center lg:h-full lg:w-1/3">
+        <div className="flex justify-between">
+          <span>Subtotal (3 items)</span>
+          <span>$81.70</span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>Service Cost</span>
+          <span>$0.00</span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>Delivery Cost</span>
+          <span className="text-green-500">FREE!</span>
+        </div>
+
+        <hr className="my-2" />
+
+        <div className="flex justify-between font-bold">
+          <span>TOTAL (INCL. VAT)</span>
+          <span>$81.70</span>
+        </div>
+
+        <button className="bg-red-500 text-white p-3 rounded-md w-1/2 self-end">
+          CHECKOUT
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default CartPage;
+
+
+
+./app/LoginPage/page.tsx
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+const LoginPage = () => {
+  return (
+    <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
+      {/* BOX  */}
+      <div className="h-full shadow-2xl rounded-md flex flex-col md:flex-row md:h-[70%] md:w-full lg:w-[60%] 2xl:w-1/2">
+        {/* IMAGE CONTAINER  */}
+        <div className="relative h-1/3 w-full md:h-full md:w-1/2">
+          <Image src="/loginBg.png" alt="" fill className="object-cover" />
+        </div>
+        {/* FORM CONTAINER  */}
+        <div className="p-10 flex flex-col gap-8 md:w-1/2">
+          <h1 className="font-bold text-xl xl:text-3xl">Welcome</h1>
+          <p className="">
+            Log into your account or create a new one using social buttons
+          </p>
+          <button className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md">
+            <Image
+              src="/google.png"
+              alt=""
+              width={20}
+              height={20}
+              className="object-contain"
+            />
+            Sign in with Google
+          </button>
+          <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
+            <Image
+              src="/facebook.png"
+              alt=""
+              width={20}
+              height={20}
+              className="object-contain"
+            />
+            Sign in with Facebook
+          </button>
+          <p className="text-sm">
+            Have a problem?
+            <Link className="underline" href="/">
+              {" "}
+              Contact us
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LoginPage;
+
+
+
+./app/menu/page.tsx
+import { menu } from "../../src/data";
+import Link from "next/link";
+import React from "react";
+
+function MenuPage() {
+  return (
+    <div className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col md:flex-row items-center">
+      {menu.map((category) => (
+        <Link
+          href={`/menu/${category.slug}`}
+          key={category.id}
+          className="w-full h-1/3 bg-cover p-8 md:h-1/2"
+          style={{ backgroundImage: `url(${category.img})` }}
+        >
+          <div className={`text-${category.color} w-1/2`}>
+            <h1 className="uppercase font-bold text-3xl">{category.title}</h1>
+            <p className="text-sm my-8">{category.desc}</p>
+            <button
+              className={`hidden 2xl:block bg-${category.color} text-${
+                category.color === "black" ? "white" : "red-500"
+              } py-2 px-4 rounded-md`}
+            >
+              Explore
+            </button>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+export default MenuPage;
+
+
+
+./app/orders/page.tsx
+import React from "react";
+
+const OrdersPage = () => {
+  return (
+    <div className="p-4 lg:px-20 xl:px-40">
+      <table className="w-full border-separate border-spacing-3">
+        <thead>
+          <tr className="text-left">
+            <th className="hidden md:block">Order ID</th>
+            <th className="">Date</th>
+            <th className="">Price</th>
+            <th className="hidden md:block">Produce</th>
+            <th className="">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="text-sm md:text-base bg-red-50">
+            <td className="hidden md:block py-6 px-1">123456789</td>
+            <td className="py-6 px-1">19.07.2023</td>
+            <td className="py-6 px-1">89.90</td>
+            <td className="hidden md:block py-6 px-1">
+              Big Burger Menu (2), Veggie Pizza (2), Coca Cola 1L
+            </td>
+            <td>On the Way (approx. 10min ...)</td>
+          </tr>
+          <tr className="text-sm md:text-base odd:bg-gray-100">
+            <td className="hidden md:block py-6 px-1">123456789</td>
+            <td className="py-6 px-1">19.07.2023</td>
+            <td className="py-6 px-1">89.90</td>
+            <td className="hidden md:block py-6 px-1">
+              Big Burger Menu (2), Veggie Pizza (2), Coca Cola 1L
+            </td>
+            <td>On the Way (approx. 10min ...)</td>
+          </tr>
+          <tr className="text-sm md:text-base odd:bg-gray-100">
+            <td className="hidden md:block py-6 px-1">123456789</td>
+            <td className="py-6 px-1">19.07.2023</td>
+            <td className="py-6 px-1">89.90</td>
+            <td className="hidden md:block py-6 px-1">
+              Big Burger Menu (2), Veggie Pizza (2), Coca Cola 1L
+            </td>
+            <td>On the Way (approx. 10min ...)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default OrdersPage;
+
+
+
+./app/product/[id]/page.tsx (File not found)
+
+
+
+./app/page.tsx
+import Featured from "../components/Featured";
+import Offer from "../components/Offer";
+import Slider from "../components/Slider";
+import Image from "next/image";
+
+export default function Home() {
+  return (
+    <main>
+      <Slider />
+      <Featured />
+      <Offer />
+    </main>
+  );
+}
+
+
+
+./app/globals.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+./app/layout.tsx
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import Notification from "../components/Notification";
+import Navbar from "../components/Navbar";
+import Footers from "../components/Footers";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Notification />
+        <Navbar />
+        {children}
+        <Footers />
+      </body>
+    </html>
+  );
+}
+
+
+
 ./components/Carticon.tsx
 import Image from "next/image";
 import Link from "next/link";
@@ -19,10 +304,65 @@ export default Carticon;
 
 
 ./components/Featured.tsx
+import { featuredProducts } from "./../src/data";
+import Image from "next/image";
+import React from "react";
+
+const Featured = () => {
+  return (
+    <div className="w-screen overflow-x-scroll text-red-500">
+      {/* WRAPPER */}
+      <div className="w-max flex">
+        {/* SINGLE ITEM */}
+        {featuredProducts.map((item) => (
+          <div
+            key={item.id}
+            className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[93vh]"
+          >
+            {/* IMAGE CONTAINER */}
+            {item.img && (
+              <div className="relative flex-1 w-full hover:rotate-[60deg] transition-all duration-500">
+                <Image src={item.img} alt="" fill className="object-contain" />
+              </div>
+            )}
+            {/* TEXT CONTAINER */}
+            <div className="flex-1 flex flex-col items-center justify-center text-center gap-4">
+              <h1 className="text-xl font-bold uppercase xl:text-2xl 2xl:text-3xl">
+                {item.title}
+              </h1>
+              <p className="p-4 2xl:p-8">{item.desc}</p>
+              <span className="text-xl font-bold">₵{item.price}</span>
+              <button className="bg-red-500 text-white p-2 rounded-md">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Featured;
 
 
 
-./components/Footer.tsx (File not found)
+./components/Footers.tsx
+import Link from "next/link";
+import React from "react";
+
+const Footers = () => {
+  return (
+    <div className="h-12 md:h-24 p-4 lg:px-20 xl:p-40 text-red-500 flex items-center justify-between ">
+      <Link href="/" className="font-bond text-xl ">
+        MASSIMO
+      </Link>
+      <p>© ALL RIGHTS RESERVED</p>
+    </div>
+  );
+};
+
+export default Footers;
 
 
 
@@ -67,7 +407,7 @@ const Menu = () => {
         />
       )}
       {open && (
-        <div className="bg-red-500 text-white absolute left--0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10">
+        <div className="bg-red-500 text-white absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10">
           {links.map((item) => (
             <Link href={item.url} key={item.id} onClick={() => setOpen(false)}>
               {item.title}
@@ -104,7 +444,7 @@ import Image from "next/image";
 const Navbar = () => {
   const user = false;
   return (
-    <div className="h-12 text-red-500 p-4 flex items-center justify-between border-b-2 border-b-red-500 uppercase md:h-24 lg:px-20">
+    <div className="h-12 text-red-500 p-4 flex items-center justify-between border-b-2 border-b-red-500 uppercase md:h-24 lg:px-20 xl:px-40">
       {/* LEFT LINKS */}
       <div className="hidden md:flex gap-4 flex-1">
         <Link href="/">Homepage</Link>
@@ -121,7 +461,7 @@ const Navbar = () => {
       </div>
       {/* RIGHT LINKS */}
       <div className="hidden md:flex gap-4 items-center justify-end flex-1">
-        <div className="md:absolute top-3 r-2 lg:static flex items-center gap-2 cursor-pointer bg-orange-300 px-1 rounded-md">
+        <div className="md:absolute top-3 right-2 lg:static flex items-center gap-2 cursor-pointer bg-orange-300 px-1 rounded-md">
           <Image src="/phone.png" alt="" width={20} height={20} />
           <span>+1 234 567 890</span>
         </div>
@@ -145,7 +485,7 @@ import React from "react";
 
 const Notification = () => {
   return (
-    <div className="h-12 bg-red-500 text-white px-4 flex items-center justify-center text-center text-small md:text-base cursor-poiter">
+    <div className="h-12 bg-red-500 text-white px-4 flex items-center justify-center text-center text-sm md:text-base cursor-pointer">
       Free Delivery On Monday
     </div>
   );
@@ -156,6 +496,36 @@ export default Notification;
 
 
 ./components/Offer.tsx
+import Image from "next/image";
+import React from "react";
+import CountDown from "./Countdown";
+
+const Offer = () => {
+  return (
+    <div className="bg-black h-screen flex flex-col md:flex-row md:justify-between md:bg-[url('/offerBg.png')] md:h-[70vh]">
+      {/* TEXT COINTAINER */}
+      <div className="flex-1 flex flex-col justify-center items-center text-center gap-8 p-6">
+        <h1 className="text-white text-5xl font-bold xl:text-6xl">
+          Delicious Burger & French Fry
+        </h1>
+        <p className="text-white xl:text-xl">
+          Progressively simplify effective e-toilers and process-centric methods
+          of empowerment. Quickly pontificate parallel.
+        </p>
+        <CountDown />
+        <button className="bg-red-500 text-white rounded-md py-3 px-6">
+          Order Now
+        </button>
+      </div>
+      {/* IMAGE CONTAINER */}
+      <div className="flex-1 w-full relative md:h-full">
+        <Image src="/offerProduct.png" alt="" fill className="object-contain" />
+      </div>
+    </div>
+  );
+};
+
+export default Offer;
 
 
 
@@ -179,7 +549,7 @@ const data = [
   {
     id: 3,
     title: "the best pizza to share with your family",
-    image: "/slide3.png",
+    image: "/slide3.jpg",
   },
 ];
 
